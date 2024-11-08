@@ -1,0 +1,55 @@
+.folderIcon {
+    position: relative;
+    color: var(--white);
+    width: auto;
+    height: 9.25em;
+}
+
+.folderBody, .folderBodyMirror, 
+.folderFlap, .folderFlapMirror {
+    background-color: var(--primary-colour);
+    border: 1px solid var(--secondary-colour);
+}
+
+.folderBody, .folderBodyMirror {
+    position: absolute;
+    width: 5.625em;
+    height: 5.3125em;
+}
+
+.folderFlap, .folderFlapMirror {
+    position: absolute;
+    width: 2.8125em;
+    height: 2.6875em;
+    border-radius: 1.0625em;
+    background-clip: padding-box;
+}
+
+.folderBody {
+    top: 0.75em;
+    left: 0;
+}
+
+.folderFlap {
+    top: 0;
+    left: 0;
+}
+
+.folderBodyMirror {
+    top: 2.75em;
+    left: 0;
+}
+
+.folderFlapMirror {
+    top: 6.125em;
+    left: 0;
+}
+
+.text, .textMirror {
+    position: absolute;
+    left: 1.056em;
+}
+
+.text { bottom: 0; }
+
+.textMirror { top: 0; }

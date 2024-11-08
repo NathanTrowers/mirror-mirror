@@ -1,0 +1,13 @@
+:root {
+    --primary-colour: #677fca;
+    --primary-colour-light: #a5bbff;
+    --primary-colour-lighter: #bcc6e5;
+    --secondary-colour: #ffcc00;
+    --secondary-colour-light: #fbecb0;
+    --accent-dark: #6a728a;
+    --white: #fff;
+}
+
+body {
+    background-color: var(--accent-dark);
+}

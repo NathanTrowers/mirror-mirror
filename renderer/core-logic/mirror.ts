@@ -1,7 +1,12 @@
-import fs, { PathLike } from 'node:fs';
+import fs from 'node:fs';
 import path from 'node:path';
 
-// if target directory is missing folder/file or has file that is different from before, copy it
+/** Copies nested files and folders from source to target.
+ * If the target directory is missing the latest version of a file 
+ * it will overwrite the existing file.
+ * 
+ * @throws Throws on file system error.
+ **/
 export const copy = (sourceContents: string[], targetDirectory: string) => {
     try {
         if (sourceContents.length <= 0) {
@@ -36,10 +41,11 @@ export const copy = (sourceContents: string[], targetDirectory: string) => {
     }
 }
 
-// if target directory has file that is different from before, copy missing parts.
-
-
-// if  target directory has folder/file that source directory does not, delete it.
+/** Deletes nested files and folders in the target directory if
+ * the source directory no longer has them.
+ * 
+ * @throws Throws on file system error.
+ **/
 export const remove = (sourceDirectory: string, targetDirectory: string) => {
     try {
         const sourceFolderContents: string[] = fs.readdirSync(sourceDirectory)

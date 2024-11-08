@@ -1,0 +1,33 @@
+.fileIconContainer {
+    color: var(--white);
+    position: relative;
+    width: auto;
+    height: 8.25em;
+}
+
+.fileIcon, .fileIconMirror {
+    position: absolute;
+    left: 0;
+    background-color: var(--secondary-colour-light);
+    border: 1px solid var(--secondary-colour);
+    width: 4.5em;
+    height: 5.3125em;
+    /* height: 7.25em; */
+}
+.fileIcon {
+    top: 0;
+    clip-path: polygon(75% 0, 100% 20%, 100% 100%, 0 100%, 0 0);
+}
+
+.fileIconMirror {
+    bottom: 0;
+    clip-path: polygon(100% 0%, 100% 80%, 75% 100%, 0 100%, 0 0);
+}
+
+.text, .textMirror {
+    position: absolute;
+    left: 0.4375em;
+}
+.text { bottom: 0; }
+
+.textMirror { top: 0; }

@@ -2,6 +2,8 @@ import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
+import MirrorLine from '../components/mirror-line/MirrorLine'
+import FolderSelect from '../components/folder-select/FolderSelect'
 
 export default function HomePage() {
   const [message, setMessage] = React.useState('No message found')
@@ -15,9 +17,16 @@ export default function HomePage() {
   return (
     <React.Fragment>
       <Head>
-        <title>Home - Nextron (basic-lang-typescript)</title>
+        <title>MirrorMirror</title>
       </Head>
-      <div>
+      <FolderSelect 
+        mirror={true}
+      />
+      <MirrorLine />
+      <FolderSelect 
+        mirror={false}
+      />
+      {/* <div>
         <p>
           ⚡ Electron + Next.js ⚡ -<Link href="/next">Go to next page</Link>
         </p>
@@ -37,7 +46,7 @@ export default function HomePage() {
           Test IPC
         </button>
         <p>{message}</p>
-      </div>
+      </div> */}
     </React.Fragment>
   )
 }

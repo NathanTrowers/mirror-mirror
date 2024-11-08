@@ -1,0 +1,58 @@
+.firstSelect {
+    align-self: center;
+}
+
+.folderSelect, .folderSelectMirror {
+    display: flex;
+    width: 100vw;
+    height: 48.2vh;
+    justify-content: flex-end;
+}
+
+.folderSelect{
+    flex-flow: column-reverse nowrap;
+}
+
+.folderSelectMirror {
+    flex-flow: column nowrap;
+}
+
+.firstSelectCenter {
+    justify-content: center;
+}
+
+
+.folderHolder, .folderHolderMirror {
+    display: flex;
+    align-items: center;
+    align-content: space-evenly;
+    justify-content: flex-start;
+    column-gap: 11em;
+    overflow: auto;
+}
+
+.folderHolder {
+    flex-flow: row wrap;
+}
+
+.folderHolderMirror {
+    flex-flow: row wrap-reverse;
+}
+
+.folderHolder::-webkit-scrollbar,  .folderHolderMirror::-webkit-scrollbar {
+    width: 0.81rem;
+}
+
+.folderHolder::-webkit-scrollbar-track,  .folderHolderMirror::-webkit-scrollbar-track {
+    background-color: #bcc6e5;
+}
+
+.folderHolder::-webkit-scrollbar-thumb,  .folderHolderMirror::-webkit-scrollbar-thumb {
+    background-color: #ffcc00;
+}
+
+.buttonBox, .buttonBoxMirror { align-self: flex-end; }
+
+.buttonBox { margin-bottom: 2rem; }
+
+.buttonBoxMirror { margin-top: 2rem; }
