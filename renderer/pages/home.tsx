@@ -1,30 +1,64 @@
-import React from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import MirrorLine from '../components/mirror-line/MirrorLine'
 import FolderSelect from '../components/folder-select/FolderSelect'
+import FolderSelection from '../components/folder-select/FolderSelection'
 
 export default function HomePage() {
-  const [message, setMessage] = React.useState('No message found')
+  const [message, setMessage] = useState('No message found')
+  const [source, setSource] = useState({folderPath: '', folderContents: []});
+  const [target, setTarget] = useState({folderPath: '', folderContents: []});
+  const [isMirrorable, setIsMirrorable] = useState(false);
+  
+  useMemo(() => {
+    if (JSON.stringify(source) !== JSON.stringify({folderPath: '', folderContents: []})
+       && JSON.stringify(target) !== JSON.stringify({folderPath: '', folderContents: []})
+    ) {
+      setIsMirrorable(true);
+      console.log('CALLED');
+    }
+  }, [source, target]);
 
-  React.useEffect(() => {
+  const onTargetFolderSelect = (targetData: FolderSelection) => {
+    setTarget(targetData); 
+  }
+
+  const onSourceFolderSelect = (sourceData: FolderSelection) => {
+    setSource(sourceData); 
+  }
+
+  const onMirrorSourceDirectory = () => {
+    window.ipc.send('MirrorTime', { souce: source, target: target });
+    window.ipc.on('MirrorTime', () => {
+      window.ipc.send('onTargetFolderSelect', target?.folderPath);
+      window.ipc.send('onSourceFolderSelect', source?.folderPath);
+  });
+  }
+
+  useEffect(() => { // TODO: AIRMARK TO REMOVE
     window.ipc.on('message', (message: string) => {
       setMessage(message)
     })
   }, [])
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Head>
         <title>MirrorMirror</title>
       </Head>
-      <FolderSelect 
+      <FolderSelect
         mirror={true}
+        onFolderSelect={onTargetFolderSelect}
       />
-      <MirrorLine />
-      <FolderSelect 
+      <MirrorLine 
+        isMirrorable={isMirrorable}
+        mirrorSourceDirectory={onMirrorSourceDirectory}
+      />
+      <FolderSelect
         mirror={false}
+        onFolderSelect={onSourceFolderSelect}
       />
       {/* <div>
         <p>
@@ -47,6 +81,6 @@ export default function HomePage() {
         </button>
         <p>{message}</p>
       </div> */}
-    </React.Fragment>
+    </Fragment>
   )
 }

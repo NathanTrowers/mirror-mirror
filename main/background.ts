@@ -1,7 +1,11 @@
-import path from 'path'
-import { app, ipcMain } from 'electron'
+import fs from 'node:fs';
+import path from 'node:path';
+import { app, dialog, ipcMain } from 'electron'
 import serve from 'electron-serve'
 import { createWindow } from './helpers'
+
+import FolderDisplay from './FolderDisplay';
+import { copy } from './core-logic/mirror';
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -34,6 +38,63 @@ if (isProd) {
 app.on('window-all-closed', () => {
   app.quit()
 })
+
+ipcMain.on('onTargetFolderSelect', async (event, containingFolder) => {
+  try {
+    let folder: string;
+
+    containingFolder === ''
+      ? folder = await dialog.showOpenDialogSync({properties: ['openDirectory', 'multiSelections']})[0]
+      : folder = containingFolder;
+
+    let fileDisplay: FolderDisplay[] = [];
+    const sourceFolderContents: string[] = fs.readdirSync(folder)
+      .map(directoryItem => {
+        const itemPath: string = path.join(folder, directoryItem);
+        const isFile: boolean = fs.statSync(itemPath).isFile();
+        fileDisplay.push({ fileName: directoryItem, isFile: isFile });
+  
+        return itemPath;
+      });
+  
+    event.reply('onTargetFolderSelect', [folder, sourceFolderContents, fileDisplay]);
+  } catch(error) {
+    console.error(error);
+  }
+});
+
+ipcMain.on('onSourceFolderSelect', async (event, containingFolder) => {
+  try {
+    let folder: string;
+
+    containingFolder === ''
+      ? folder = await dialog.showOpenDialogSync({properties: ['openDirectory', 'multiSelections']})[0]
+      : folder = containingFolder;
+
+    let fileDisplay: FolderDisplay[] = [];
+    const sourceFolderContents: string[] = fs.readdirSync(folder)
+      .map(directoryItem => {
+        const itemPath: string = path.join(folder, directoryItem);
+        const isFile: boolean = fs.statSync(itemPath).isFile();
+        fileDisplay.push({ fileName: directoryItem, isFile: isFile });
+  
+        return itemPath;
+      });
+  
+    event.reply('onSourceFolderSelect', [folder, sourceFolderContents, fileDisplay]);
+  } catch(error) {
+    console.error(error);
+  }
+});
+
+ipcMain.on('MirrorTime', async (event, folderObjects) => {
+  try {
+    const {source, target} = folderObjects;
+    
+  } catch(error) {
+    console.error(error);
+  }
+});
 
 ipcMain.on('message', async (event, arg) => {
   event.reply('message', `${arg} World!`)
