@@ -36,8 +36,10 @@ describe('mirror', () => {
     it('deletes all files not found in source directory', () => {
         const sourceDir: string = path.resolve('test-delete-source-dir');
         const targetDir: string = path.resolve('test-target-directory');
+        const targetDirContents: string[] = fs.readdirSync(targetDir)
+            .map(directoryItem => path.join(targetDir, directoryItem));
 
-        expect(() => remove(sourceDir, targetDir)).not.toThrow();
+        expect(() => remove(sourceDir, targetDirContents)).not.toThrow();
     });
 
     afterAll(() =>{

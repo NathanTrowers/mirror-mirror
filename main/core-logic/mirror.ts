@@ -46,19 +46,31 @@ export const copy = (sourceContents: string[], targetDirectory: string) => {
  * 
  * @throws Throws on file system error.
  **/
-export const remove = (sourceDirectory: string, targetDirectory: string) => {
+export const remove = (sourceDirectory: string, targetContents: string[]) => {
     try {
-        const sourceFolderContents: string[] = fs.readdirSync(sourceDirectory)
-            .map(directoryItem => directoryItem);
-        const deletionCandidates: string[] = fs.readdirSync(targetDirectory)
-            .map(directoryItem => directoryItem)
-            .filter(file => !sourceFolderContents.includes(file));
-        deletionCandidates.map(fileName => {
-            let filePath = path.join(targetDirectory, fileName);
-            fs.lstatSync(filePath).isDirectory() 
-                ? fs.rmdirSync(filePath, { recursive: true })
-                : fs.rmSync(filePath);
-        });
+        if (targetContents.length <= 0) {
+            return;
+        }
+    
+        const target: string = targetContents.pop();
+        remove(sourceDirectory, targetContents);
+        const targetName: string = path.basename(target);
+        const sourceDirectoryContents: string[] = fs.readdirSync(sourceDirectory);
+        const isTargetIncludedInSourceDir = sourceDirectoryContents.includes(targetName);
+
+        if (!isTargetIncludedInSourceDir) {
+            fs.lstatSync(target).isDirectory() 
+                ? fs.rmdirSync(target, { recursive: true })
+                : fs.rmSync(target);
+        }
+
+        if (isTargetIncludedInSourceDir
+            && fs.lstatSync(target).isDirectory() 
+        ) {
+            const targetFolderContents: string[] = fs.readdirSync(target)
+                .map(directoryItem => path.join(target, directoryItem));
+            remove(path.join(sourceDirectory, targetName), targetFolderContents);
+        }
     } catch (error) {
         throw error;
     }

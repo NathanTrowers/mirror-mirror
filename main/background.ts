@@ -5,7 +5,7 @@ import serve from 'electron-serve'
 import { createWindow } from './helpers'
 
 import FolderDisplay from './FolderDisplay';
-import { copy } from './core-logic/mirror';
+import { copy, remove } from './core-logic/mirror';
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -88,11 +88,17 @@ ipcMain.on('onSourceFolderSelect', async (event, containingFolder) => {
 });
 
 ipcMain.on('MirrorTime', async (event, folderObjects) => {
+  let isMirrored = false;
   try {
     const {source, target} = folderObjects;
-    
+
+    remove(source?.folderPath, target?.folderContents);
+    copy(source?.folderContents, target?.folderPath);
+    isMirrored = true;
   } catch(error) {
     console.error(error);
+  } finally {
+    event.reply('MirrorTime', isMirrored);
   }
 });
 

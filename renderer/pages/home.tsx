@@ -17,7 +17,6 @@ export default function HomePage() {
        && JSON.stringify(target) !== JSON.stringify({folderPath: '', folderContents: []})
     ) {
       setIsMirrorable(true);
-      console.log('CALLED');
     }
   }, [source, target]);
 
@@ -30,8 +29,9 @@ export default function HomePage() {
   }
 
   const onMirrorSourceDirectory = () => {
-    window.ipc.send('MirrorTime', { souce: source, target: target });
-    window.ipc.on('MirrorTime', () => {
+    window.ipc.send('MirrorTime', { source: source, target: target });
+    window.ipc.on('MirrorTime', (isMirrored: any[]) => {
+      if (!isMirrored) {console.log('SHOW ERROR MESSAGE!!!!!!!!!!!')}
       window.ipc.send('onTargetFolderSelect', target?.folderPath);
       window.ipc.send('onSourceFolderSelect', source?.folderPath);
   });
