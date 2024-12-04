@@ -1,8 +1,16 @@
+.flexContainer, .flexContainerMirror {
+    display: flex;
+    flex-flow: column wrap;
+    width: 5.725em;
+}
+
+.flexContainerMirror { flex-direction: column-reverse; }
+
 .folderIcon {
     position: relative;
     color: var(--white);
-    width: auto;
-    height: 9.25em;
+    width: 5.625em;
+    height: 6.25em;
 }
 
 .folderBody, .folderBodyMirror, 
@@ -36,18 +44,19 @@
 }
 
 .folderBodyMirror {
-    top: 2.75em;
+    top: 0;
     left: 0;
 }
 
 .folderFlapMirror {
-    top: 6.125em;
+    top: 3.375em;
+
     left: 0;
 }
 
 .text, .textMirror {
-    position: absolute;
-    left: 1.056em;
+    position: relative;
+    text-align: center;
 }
 
 .text { bottom: 0; }

@@ -44,13 +44,11 @@ export default function FolderSelect({ mirror, onFolderSelect }: { mirror:boolea
     if (!isActive) {
         return (
             <div className={`${folderSelectStyles} ${styles.firstSelectCenter}`}>
-                <div className={styles.firstSelect}>
                     <Button
                         text={buttonText}
                         action={handleFileDialogue}
                         buttonType={'chooseDirectory'}
                     />
-                </div>
             </div>
         );
     }

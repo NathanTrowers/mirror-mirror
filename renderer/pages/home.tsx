@@ -1,13 +1,12 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
 import MirrorLine from '../components/mirror-line/MirrorLine'
 import FolderSelect from '../components/folder-select/FolderSelect'
 import FolderSelection from '../components/folder-select/FolderSelection'
+import ErrorMessage from '../components/error-message/ErrorMessage'
 
 export default function HomePage() {
-  const [message, setMessage] = useState('No message found')
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
   const [source, setSource] = useState({folderPath: '', folderContents: []});
   const [target, setTarget] = useState({folderPath: '', folderContents: []});
   const [isMirrorable, setIsMirrorable] = useState(false);
@@ -28,20 +27,18 @@ export default function HomePage() {
     setSource(sourceData); 
   }
 
+  const onCloseDialogueBox = () => {
+    setShowErrorMessage(false);
+  }
+
   const onMirrorSourceDirectory = () => {
     window.ipc.send('MirrorTime', { source: source, target: target });
     window.ipc.on('MirrorTime', (isMirrored: any[]) => {
-      if (!isMirrored) {console.log('SHOW ERROR MESSAGE!!!!!!!!!!!')}
+      if (!isMirrored) {setShowErrorMessage(true);}
       window.ipc.send('onTargetFolderSelect', target?.folderPath);
       window.ipc.send('onSourceFolderSelect', source?.folderPath);
   });
   }
-
-  useEffect(() => { // TODO: AIRMARK TO REMOVE
-    window.ipc.on('message', (message: string) => {
-      setMessage(message)
-    })
-  }, [])
 
   return (
     <Fragment>
@@ -60,27 +57,7 @@ export default function HomePage() {
         mirror={false}
         onFolderSelect={onSourceFolderSelect}
       />
-      {/* <div>
-        <p>
-          ⚡ Electron + Next.js ⚡ -<Link href="/next">Go to next page</Link>
-        </p>
-        <Image
-          src="/images/logo.png"
-          alt="Logo image"
-          width={256}
-          height={256}
-        />
-      </div>
-      <div>
-        <button
-          onClick={() => {
-            window.ipc.send('message', 'Hello')
-          }}
-        >
-          Test IPC
-        </button>
-        <p>{message}</p>
-      </div> */}
+      {showErrorMessage && <ErrorMessage closeDialogueBox={onCloseDialogueBox} />}
     </Fragment>
   )
 }

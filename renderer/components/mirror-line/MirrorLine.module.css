@@ -8,6 +8,8 @@
 }
 
 .logoBox {
+    display: flex;
+    align-items: center;
     position: fixed;
     border: none;
     top: 50%;

@@ -6,6 +6,8 @@
     --secondary-colour-light: #fbecb0;
     --accent-dark: #6a728a;
     --white: #fff;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 body {

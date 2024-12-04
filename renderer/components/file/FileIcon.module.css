@@ -1,8 +1,16 @@
+.flexContainer, .flexContainerMirror {
+    display: flex;
+    flex-flow: column wrap;
+    width: 4.6em;
+}
+
+.flexContainerMirror { flex-direction: column-reverse; }
+
 .fileIconContainer {
     color: var(--white);
     position: relative;
-    width: auto;
-    height: 8.25em;
+    width: 4.5em;
+    height: 5.3125em;
 }
 
 .fileIcon, .fileIconMirror {
@@ -12,7 +20,6 @@
     border: 1px solid var(--secondary-colour);
     width: 4.5em;
     height: 5.3125em;
-    /* height: 7.25em; */
 }
 .fileIcon {
     top: 0;
@@ -25,8 +32,8 @@
 }
 
 .text, .textMirror {
-    position: absolute;
-    left: 0.4375em;
+    position: relative;
+    text-align: center;
 }
 .text { bottom: 0; }
 
