@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: nexus.not.mirrormirror
+productName: MirrorMirror
+copyright: Copyright © 2024 Nathan Trowers
 directories:
   output: dist
   buildResources: resources

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Button from '../button/Button'
-import FileIcon from '../file/FileIcon'
-import FolderIcon from '../folder/FolderIcon'
+import Button from './button/Button'
+import FileIcon from './file/FileIcon'
+import FolderIcon from './folder/FolderIcon'
 import FolderDisplay from './FolderDisplay';
 
 import styles from './FolderSelect.module.css'
@@ -86,7 +86,7 @@ export default function FolderSelect({ mirror, onFolderSelect }: { mirror:boolea
 
     return (
         <div className={folderSelectStyles}>
-            <div className={styles.firstSelect}>
+            <div className={`${folderSelectStyles} ${styles.firstSelectCenter}`}>
                 <p>Folder Empty</p>
             </div>
             <aside className={buttonBoxStyles}>

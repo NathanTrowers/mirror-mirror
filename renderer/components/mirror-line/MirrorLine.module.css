@@ -20,4 +20,6 @@
     background-color: var(--primary-colour-lighter);
 }
 
-
+.image {
+    transform: translate(-3%, -0%);
+}

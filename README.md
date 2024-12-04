@@ -1,38 +1,17 @@
-<p align="center"><img src="https://i.imgur.com/NZfsD1p.png"></p>
+# MirrorMirror <img src="renderer/public/images/logo.png" alt="MirrorMirror logo" width="169">
 
-## Usage
+Powered by Nextron, this app copies files found in one directory to another one; the target directory mirrors the source directory.  This also means that any file in the target directory that is not also in the source directory will be deleted.
 
-### Create an App
+To date, the only things MirrorMirror will not mirror are symbolic links.
 
-```
-# with npx
-$ npx create-nextron-app my-app --example basic-lang-typescript
 
-# with yarn
-$ yarn create nextron-app my-app --example basic-lang-typescript
+## Running in dev mode
+You can run the app in development mode with `npm run dev`
 
-# with pnpm
-$ pnpm dlx create-nextron-app my-app --example basic-lang-typescript
-```
+## Build Configuration
+You can build the app with `npm run build`.  To my knowledge, the default behaviour is to output an executable package for the machine used to buid it.
 
-### Install Dependencies
+For help with your custom build configuration see the [Nextron Creator's Notes](https://github.com/saltyshiomix/nextron?tab=readme-ov-file#nextron-build-options).
 
-```
-$ cd my-app
-
-# using yarn or npm
-$ yarn (or `npm install`)
-
-# using pnpm
-$ pnpm install --shamefully-hoist
-```
-
-### Use it
-
-```
-# development mode
-$ yarn dev (or `npm run dev` or `pnpm run dev`)
-
-# production build
-$ yarn build (or `npm run build` or `pnpm run build`)
-```
+## Automated Testing
+You can run the unit tests with `npm run test`

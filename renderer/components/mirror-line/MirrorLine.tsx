@@ -1,6 +1,7 @@
 import { MouseEventHandler } from 'react';
-import styles from './MirrorLine.module.css'
 import Image from 'next/image';
+
+import styles from './MirrorLine.module.css'
 
 export default function MirrorLine({ isMirrorable, mirrorSourceDirectory }
 : { isMirrorable:boolean, mirrorSourceDirectory: MouseEventHandler<HTMLButtonElement>
@@ -15,15 +16,16 @@ export default function MirrorLine({ isMirrorable, mirrorSourceDirectory }
                         onClick={mirrorSourceDirectory}
                     >
                         <Image 
-                            width={60}
-                            height={30}
+                            className={styles.image}
+                            width='169'
+                            height='38'
                             src='/images/logo.png'
                             alt='MirrorMirror Logo'
                         />
                     </button>
                 :
                     <div className={styles.logoBox}>
-                        <Image 
+                        <Image
                             width='169'
                             height='38'
                             src='/images/logo.png'
